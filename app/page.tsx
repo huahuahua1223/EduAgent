@@ -27,7 +27,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/register">
-                <Button variant="outline" size="lg" className="bg-white">
+                <Button variant="secondary" size="lg" className="bg-white">
                   注册账号
                 </Button>
               </Link>
