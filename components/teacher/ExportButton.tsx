@@ -6,6 +6,7 @@
  * 功能：
  * - 提供课件内容的导出功能
  * - 支持将课件导出为JSON文件和DOCX文档
+ * - 使用下拉菜单整合多种导出格式
  */
 
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,13 @@ import {
   WidthType
 } from "docx";
 import { saveAs } from "file-saver";
+import { FileDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface ExportButtonProps {
   fileName: string;
@@ -333,21 +341,21 @@ export default function ExportButton({ fileName, content }: ExportButtonProps) {
   };
 
   return (
-    <div className="flex space-x-2">
-      <Button 
-        variant="outline" 
-        onClick={exportAsJson}
-        disabled={isExporting}
-      >
-        导出JSON
-      </Button>
-      <Button 
-        variant="default" 
-        onClick={exportAsDocx}
-        disabled={isExporting}
-      >
-        {isExporting ? "导出中..." : "导出Word文档"}
-      </Button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" disabled={isExporting}>
+          <FileDown className="mr-2 h-4 w-4" />
+          {isExporting ? "导出中..." : "导出课件"}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={exportAsJson} disabled={isExporting}>
+          导出为JSON
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={exportAsDocx} disabled={isExporting}>
+          导出为Word文档
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 } 
