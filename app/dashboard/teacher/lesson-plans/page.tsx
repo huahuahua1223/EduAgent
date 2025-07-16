@@ -1,8 +1,21 @@
+/**
+ * 教师备课列表页面
+ * 
+ * 功能：
+ * - 展示教师已创建的所有备课课件
+ * - 提供创建新备课的入口
+ * - 集成课件列表组件，支持查看、编辑和删除操作
+ * 
+ * 权限：
+ * - 仅限教师角色访问
+ */
+
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { authOptions } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import LessonPlanList from "@/components/teacher/LessonPlanList";
 
 export default async function LessonPlansPage() {
   const session = await getServerSession(authOptions);
@@ -20,19 +33,13 @@ export default async function LessonPlansPage() {
         </Link>
       </div>
       
-      <div className="grid gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">开始新备课</h2>
-          <p className="mb-4">创建一个新的课件，使用AI辅助快速生成教学内容，包括教学目标、重点难点和教学流程。</p>
-          <Link href="/dashboard/teacher/lesson-plans/new">
-            <Button variant="outline" className="mt-2">开始备课</Button>
-          </Link>
-        </div>
-        
-        {/* 此处在实际项目中应添加课件列表组件 */}
-        {/* <LessonPlanList /> */}
-        <p className="text-center text-gray-500 my-10">备课列表功能开发中，敬请期待...</p>
+      <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 className="text-xl font-semibold mb-4">备课管理</h2>
+        <p className="mb-4">在这里您可以管理已创建的所有课件，包括查看、编辑和删除操作。您也可以按学科筛选课件。</p>
       </div>
+      
+      {/* 使用课件列表组件 */}
+      <LessonPlanList />
     </div>
   );
 } 
