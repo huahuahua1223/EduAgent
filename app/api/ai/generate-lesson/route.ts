@@ -1,3 +1,18 @@
+/**
+ * AI辅助生成课件内容API端点
+ * 
+ * 功能：
+ * - POST：根据提供的学科、标题和关键词，自动生成结构化的教案内容
+ * 
+ * 输入参数：
+ * - subject: 学科类型（如数学、语文、英语、计算机）
+ * - title: 课程标题（可选）
+ * - keywords: 关键词（可选，用于生成更针对性的内容）
+ * 
+ * 返回：
+ * - 结构化的课件内容，包含教学目标、重点、教学流程等部分
+ */
+
 export async function POST(req: Request) {
   const { subject, title, keywords } = await req.json();
   

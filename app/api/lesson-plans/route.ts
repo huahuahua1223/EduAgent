@@ -1,8 +1,18 @@
+/**
+ * 课件API端点
+ * 
+ * 功能：
+ * - GET：获取教师创建的课件列表，支持按学科筛选
+ * - POST：创建新的课件
+ * 
+ * 权限：
+ * - 仅限教师角色访问
+ */
+
 import { getServerSession } from "next-auth/next";
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
-// 创建课件
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -28,7 +38,6 @@ export async function POST(req: Request) {
   }
 }
 
-// 获取课件列表
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== "TEACHER") {
