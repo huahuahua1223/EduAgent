@@ -3,7 +3,7 @@
  * 
  * 功能：
  * - 展示课件的详细信息
- * - 提供编辑和导出功能
+ * - 提供编辑和导出功能（支持JSON和DOCX格式）
  * - 显示结构化的课件内容
  * 
  * 权限：
@@ -53,6 +53,19 @@ export default async function LessonPlanDetailPage({ params }: { params: { id: s
       // 如果解析失败，使用默认空内容
     }
     
+    // 添加课件元数据，用于导出
+    const contentWithMetadata = {
+      ...parsedContent,
+      metadata: {
+        "课件标题": lessonPlan.title,
+        "学科": lessonPlan.subject,
+        "标签": lessonPlan.tags || "无",
+        "创建时间": new Date(lessonPlan.createdAt).toLocaleString(),
+        "最后更新": new Date(lessonPlan.updatedAt).toLocaleString(),
+        "发布状态": lessonPlan.isPublished ? '已发布' : '草稿'
+      }
+    };
+    
     return (
       <div className="container mx-auto p-6">
         <div className="flex justify-between items-center mb-8">
@@ -63,7 +76,7 @@ export default async function LessonPlanDetailPage({ params }: { params: { id: s
             </Link>
             <ExportButton 
               fileName={lessonPlan.title} 
-              content={lessonPlan.content || "{}"} 
+              content={JSON.stringify(contentWithMetadata)} 
             />
           </div>
         </div>
