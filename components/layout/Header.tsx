@@ -88,6 +88,16 @@ const Header = () => {
           <>
             {commonLinks}
             <Link
+              href="/dashboard/teacher/lesson-plans"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                pathname.startsWith("/dashboard/teacher/lesson-plans")
+                  ? "bg-gray-900 text-white"
+                  : "text-gray-300 hover:bg-gray-700 hover:text-white"
+              }`}
+            >
+              备课与设计
+            </Link>
+            <Link
               href="/teacher"
               className={`px-3 py-2 rounded-md text-sm font-medium ${
                 pathname.startsWith("/teacher")
