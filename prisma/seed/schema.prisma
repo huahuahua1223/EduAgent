@@ -28,10 +28,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  sessions  Session[]
-  practices Practice[]
-  questions Question[]
-  resources Resource[]
+  sessions    Session[]
+  practices   Practice[]
+  questions   Question[]
+  resources   Resource[]
+  lessonPlans LessonPlan[] // 添加关联
 }
 
 model Session {
@@ -94,6 +95,22 @@ model Resource {
 
   course Course? @relation(fields: [courseId], references: [id], onDelete: SetNull)
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+// 新增备课模型
+model LessonPlan {
+  id          Int      @id @default(autoincrement())
+  title       String // 课件标题
+  content     String   @db.LongText // 课件内容(JSON格式)
+  subject     String // 学科
+  tags        String? // 标签，逗号分隔
+  teacherId   Int // 教师ID
+  isPublished Boolean  @default(false) // 是否发布
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关联教师
+  teacher User @relation(fields: [teacherId], references: [id])
 }
 
 enum Role {
