@@ -225,7 +225,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\hjy\\competitions\\软件杯\\eduagent\\prisma\\seed",
+      "value": "D:\\Project\\软件杯\\EduAgent-aLiang\\prisma\\seed",
       "fromEnvVar": null
     },
     "config": {
@@ -239,11 +239,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\hjy\\competitions\\软件杯\\eduagent\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\Project\\软件杯\\EduAgent-aLiang\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "..",
