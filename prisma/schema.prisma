@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma种子脚本配置
+generator seeder {
+  provider = "prisma-client-js"
+  output   = "./seed"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  role      Role      @default(STUDENT)
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  sessions   Session[]
+  practices  Practice[]
+  questions  Question[]
+  resources  Resource[]
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Course {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  questions   Question[]
+  practices   Practice[]
+  resources   Resource[]
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  courseId  Int
+  userId    Int      // 添加用户ID字段
+  content   String
+  type      QType
+  answer    String
+  createdAt DateTime @default(now())
+
+  course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade) // 添加反向关系
+  practices Practice[]
+}
+
+model Practice {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  courseId   Int
+  questionId Int
+  answer     String
+  correct    Boolean
+  feedback   String?
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Resource {
+  id         Int      @id @default(autoincrement())
+  courseId   Int?
+  userId     Int?
+  title      String
+  url        String
+  type       RType
+  uploadedAt DateTime @default(now())
+
+  course Course? @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum QType {
+  SINGLE_CHOICE
+  MULTI_CHOICE
+  PROGRAMMING
+}
+
+enum RType {
+  LECTURE
+  EXERCISE
+  OTHER
+}
