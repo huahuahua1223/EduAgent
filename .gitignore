@@ -54,3 +54,6 @@ next-env.d.ts
 /prisma/seed/data/*.sql
 !prisma/seed/data/sample.json
 .prisma/
+
+# git文档
+Git.md

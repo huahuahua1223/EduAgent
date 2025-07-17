@@ -176,6 +176,18 @@ exports.Prisma.ResourceScalarFieldEnum = {
   uploadedAt: 'uploadedAt'
 };
 
+exports.Prisma.LessonPlanScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  subject: 'subject',
+  tags: 'tags',
+  teacherId: 'teacherId',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -215,6 +227,13 @@ exports.Prisma.ResourceOrderByRelevanceFieldEnum = {
   title: 'title',
   url: 'url'
 };
+
+exports.Prisma.LessonPlanOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content',
+  subject: 'subject',
+  tags: 'tags'
+};
 exports.Role = exports.$Enums.Role = {
   STUDENT: 'STUDENT',
   TEACHER: 'TEACHER',
@@ -239,7 +258,8 @@ exports.Prisma.ModelName = {
   Course: 'Course',
   Question: 'Question',
   Practice: 'Practice',
-  Resource: 'Resource'
+  Resource: 'Resource',
+  LessonPlan: 'LessonPlan'
 };
 
 /**
